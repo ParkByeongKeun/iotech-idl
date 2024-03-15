@@ -81,6 +81,7 @@ message Data {
   float voltage = 4; //전압
   float frequency = 5; //주파수
   Event event = 6; //이벤트
+  string utc = 7;
 }
 
 
