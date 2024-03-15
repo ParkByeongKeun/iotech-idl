@@ -86,12 +86,10 @@ message Data {
 
 
 message ReadDataListRequest {
-  repeated uint64 sensor_id = 1;
+  repeated uint64 sensor_serial = 1;
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
-  uint64 cursor = 5;
-  uint64 count = 6;
 }
 message ReadDataListResponse {
   repeated Data data_list = 1;
