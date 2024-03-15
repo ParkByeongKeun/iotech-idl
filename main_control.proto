@@ -1,0 +1,97 @@
+
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/ParkByeongKeun/iotech-idl/maincontrol";
+option java_multiple_files = true;
+option java_package = "net.ijoon.iotech.main_control";
+option java_outer_classname = "MainControlProto";
+
+package maincontrol;
+
+service MainControl {
+  
+  rpc ReadSensor(ReadSensorRequest) returns (ReadSensorResponse) {
+    option (google.api.http) = {
+      get: "/api/main/v1/sensor"
+  };
+  }
+  rpc ReadSensorList(ReadSensorListRequest) returns (ReadSensorListResponse) {
+    option (google.api.http) = {
+      get: "/api/main/v1/sensor_list"
+  };
+  }
+
+  rpc ReadDataList(ReadDataListRequest) returns (ReadDataListResponse) {
+    option (google.api.http) = {
+      get: "/api/main/v1/data_list"
+  };
+  }
+
+}
+
+enum SensorStatus {
+  SENSOR_STATUS_DEFAULT = 0; 
+  SENSOR_STATUS_INSPECTION = 1;
+}
+
+message Sensor {
+  uint64 id = 1;
+  string serial = 2;
+  string mac = 3;
+  string usage = 4;
+  string install_addr = 5;
+  string registered_time = 6;
+  SensorStatus sensorStatus = 7;
+  string note = 8;
+}
+
+
+// 특정 sensor 가져오기
+message ReadSensorRequest {
+  string sensor_id = 1;
+}
+message ReadSensorResponse {
+  Sensor sensor = 1;
+}
+
+// sensor list 가져오기
+message ReadSensorListRequest {
+  // string settop_uuid = 1;
+}
+message ReadSensorListResponse {
+  repeated Sensor sensor_list = 1;
+}
+
+enum Event {
+  POWER_FACTOR = 0; //역률
+  VOLTAGE_DROP = 1; //전압강하
+  SHORT_CIRCUIT = 2; //누전
+  OVERCURRENT = 3; //과전류
+  OVERVOLTAGE = 4; //과전압
+  ARC = 5; //아크
+}
+
+
+message Data {
+  float power_factor = 1; //역률
+  float reactive_power = 2; //무효전력
+  float ractive_power = 3; //유효전력
+  float voltage = 4; //전압
+  float frequency = 5; //주파수
+  Event event = 6; //이벤트
+}
+
+
+message ReadDataListRequest {
+  repeated uint64 sensor_id = 1;
+  string prev_date = 2;
+  string next_date = 3;
+  uint64 interval = 4;
+  uint64 cursor = 5;
+  uint64 count = 6;
+}
+message ReadDataListResponse {
+  repeated Data data_list = 1;
+}
