@@ -77,7 +77,7 @@ enum Event {
 message Data {
   float power_factor = 1; //역률
   float reactive_power = 2; //무효전력
-  float ractive_power = 3; //유효전력
+  float active_power = 3; //유효전력
   float voltage = 4; //전압
   float frequency = 5; //주파수
   Event event = 6; //이벤트
