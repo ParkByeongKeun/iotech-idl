@@ -12,6 +12,12 @@ package maincontrol;
 
 service MainControl {
   
+  rpc CreateSensor(CreateSensorRequest) returns (CreateSensorResponse) {
+    option (google.api.http) = {
+      post: "/api/main/v1/sensor"
+      body: "*"
+  };
+  }
   rpc ReadSensor(ReadSensorRequest) returns (ReadSensorResponse) {
     option (google.api.http) = {
       get: "/api/main/v1/sensor"
@@ -31,26 +37,37 @@ service MainControl {
 
 }
 
-enum SensorStatus {
-  SENSOR_STATUS_DEFAULT = 0; 
-  SENSOR_STATUS_INSPECTION = 1;
-}
+// enum SensorStatus {
+//   SENSOR_STATUS_DEFAULT = 0; 
+//   SENSOR_STATUS_INSPECTION = 1;
+// }
 
 message Sensor {
   uint64 id = 1;
-  string serial = 2;
-  string mac = 3;
-  string usage = 4;
-  string install_addr = 5;
-  string registered_time = 6;
-  SensorStatus sensorStatus = 7;
-  string note = 8;
+  string header = 2;
+  string serial = 3;
+  string name = 4;
+  string mac = 5;
+  string phase = 6;
+  string usage = 7;
+  string install_addr = 8;
+  string registered_time = 9;
+  // SensorStatus sensorStatus = 7;
+  string note = 10;
+  string regi_by_who = 11;
 }
 
+message CreateSensorRequest {
+  Sensor sensor = 1;
+}
+
+message CreateSensorResponse {
+  string serial = 1;
+}
 
 // 특정 sensor 가져오기
 message ReadSensorRequest {
-  string sensor_id = 1;
+  string serial = 1;
 }
 message ReadSensorResponse {
   Sensor sensor = 1;
@@ -59,6 +76,7 @@ message ReadSensorResponse {
 // sensor list 가져오기
 message ReadSensorListRequest {
   // string settop_uuid = 1;
+  string install_addr = 1;
 }
 message ReadSensorListResponse {
   repeated Sensor sensor_list = 1;

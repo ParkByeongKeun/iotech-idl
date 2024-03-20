@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MainControlClient interface {
+	CreateSensor(ctx context.Context, in *CreateSensorRequest, opts ...grpc.CallOption) (*CreateSensorResponse, error)
 	ReadSensor(ctx context.Context, in *ReadSensorRequest, opts ...grpc.CallOption) (*ReadSensorResponse, error)
 	ReadSensorList(ctx context.Context, in *ReadSensorListRequest, opts ...grpc.CallOption) (*ReadSensorListResponse, error)
 	ReadDataList(ctx context.Context, in *ReadDataListRequest, opts ...grpc.CallOption) (*ReadDataListResponse, error)
@@ -33,6 +34,15 @@ type mainControlClient struct {
 
 func NewMainControlClient(cc grpc.ClientConnInterface) MainControlClient {
 	return &mainControlClient{cc}
+}
+
+func (c *mainControlClient) CreateSensor(ctx context.Context, in *CreateSensorRequest, opts ...grpc.CallOption) (*CreateSensorResponse, error) {
+	out := new(CreateSensorResponse)
+	err := c.cc.Invoke(ctx, "/maincontrol.MainControl/CreateSensor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *mainControlClient) ReadSensor(ctx context.Context, in *ReadSensorRequest, opts ...grpc.CallOption) (*ReadSensorResponse, error) {
@@ -66,6 +76,7 @@ func (c *mainControlClient) ReadDataList(ctx context.Context, in *ReadDataListRe
 // All implementations must embed UnimplementedMainControlServer
 // for forward compatibility
 type MainControlServer interface {
+	CreateSensor(context.Context, *CreateSensorRequest) (*CreateSensorResponse, error)
 	ReadSensor(context.Context, *ReadSensorRequest) (*ReadSensorResponse, error)
 	ReadSensorList(context.Context, *ReadSensorListRequest) (*ReadSensorListResponse, error)
 	ReadDataList(context.Context, *ReadDataListRequest) (*ReadDataListResponse, error)
@@ -76,6 +87,9 @@ type MainControlServer interface {
 type UnimplementedMainControlServer struct {
 }
 
+func (UnimplementedMainControlServer) CreateSensor(context.Context, *CreateSensorRequest) (*CreateSensorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSensor not implemented")
+}
 func (UnimplementedMainControlServer) ReadSensor(context.Context, *ReadSensorRequest) (*ReadSensorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadSensor not implemented")
 }
@@ -96,6 +110,24 @@ type UnsafeMainControlServer interface {
 
 func RegisterMainControlServer(s grpc.ServiceRegistrar, srv MainControlServer) {
 	s.RegisterService(&MainControl_ServiceDesc, srv)
+}
+
+func _MainControl_CreateSensor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSensorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MainControlServer).CreateSensor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/maincontrol.MainControl/CreateSensor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MainControlServer).CreateSensor(ctx, req.(*CreateSensorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _MainControl_ReadSensor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -159,6 +191,10 @@ var MainControl_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "maincontrol.MainControl",
 	HandlerType: (*MainControlServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateSensor",
+			Handler:    _MainControl_CreateSensor_Handler,
+		},
 		{
 			MethodName: "ReadSensor",
 			Handler:    _MainControl_ReadSensor_Handler,
