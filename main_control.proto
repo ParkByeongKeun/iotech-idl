@@ -43,18 +43,17 @@ service MainControl {
 // }
 
 message Sensor {
-  uint64 id = 1;
-  string header = 2;
-  string serial = 3;
-  string name = 4;
-  string mac = 5;
-  string phase = 6;
-  string usage = 7;
-  string install_addr = 8;
-  string registered_time = 9;
+  string header = 1;
+  string serial = 2;
+  string name = 3;
+  string mac = 4;
+  string phase = 5;
+  string usage = 6;
+  string install_addr = 7;
+  string registered_time = 8;
   // SensorStatus sensorStatus = 7;
-  string note = 10;
-  string regi_by_who = 11;
+  string note = 9;
+  string regi_by_who = 10;
 }
 
 message CreateSensorRequest {
