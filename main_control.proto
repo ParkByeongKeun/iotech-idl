@@ -51,7 +51,7 @@ message Sensor {
   string usage = 6;
   string install_addr = 7;
   string registered_time = 8;
-  string last_modifyed_time = 9;
+  string last_modified_time = 9;
   string note = 10;
   string regi_by_who = 11;
   string net_ip = 12;
