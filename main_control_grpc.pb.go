@@ -25,6 +25,8 @@ type MainControlClient interface {
 	CreateSensor(ctx context.Context, in *CreateSensorRequest, opts ...grpc.CallOption) (*CreateSensorResponse, error)
 	ReadSensor(ctx context.Context, in *ReadSensorRequest, opts ...grpc.CallOption) (*ReadSensorResponse, error)
 	ReadSensorList(ctx context.Context, in *ReadSensorListRequest, opts ...grpc.CallOption) (*ReadSensorListResponse, error)
+	UpdateSensor(ctx context.Context, in *UpdateSensorRequest, opts ...grpc.CallOption) (*UpdateSensorResponse, error)
+	DeleteSensor(ctx context.Context, in *DeleteSensorRequest, opts ...grpc.CallOption) (*DeleteSensorResponse, error)
 	ReadDataList(ctx context.Context, in *ReadDataListRequest, opts ...grpc.CallOption) (*ReadDataListResponse, error)
 }
 
@@ -63,6 +65,24 @@ func (c *mainControlClient) ReadSensorList(ctx context.Context, in *ReadSensorLi
 	return out, nil
 }
 
+func (c *mainControlClient) UpdateSensor(ctx context.Context, in *UpdateSensorRequest, opts ...grpc.CallOption) (*UpdateSensorResponse, error) {
+	out := new(UpdateSensorResponse)
+	err := c.cc.Invoke(ctx, "/maincontrol.MainControl/UpdateSensor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *mainControlClient) DeleteSensor(ctx context.Context, in *DeleteSensorRequest, opts ...grpc.CallOption) (*DeleteSensorResponse, error) {
+	out := new(DeleteSensorResponse)
+	err := c.cc.Invoke(ctx, "/maincontrol.MainControl/DeleteSensor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *mainControlClient) ReadDataList(ctx context.Context, in *ReadDataListRequest, opts ...grpc.CallOption) (*ReadDataListResponse, error) {
 	out := new(ReadDataListResponse)
 	err := c.cc.Invoke(ctx, "/maincontrol.MainControl/ReadDataList", in, out, opts...)
@@ -79,6 +99,8 @@ type MainControlServer interface {
 	CreateSensor(context.Context, *CreateSensorRequest) (*CreateSensorResponse, error)
 	ReadSensor(context.Context, *ReadSensorRequest) (*ReadSensorResponse, error)
 	ReadSensorList(context.Context, *ReadSensorListRequest) (*ReadSensorListResponse, error)
+	UpdateSensor(context.Context, *UpdateSensorRequest) (*UpdateSensorResponse, error)
+	DeleteSensor(context.Context, *DeleteSensorRequest) (*DeleteSensorResponse, error)
 	ReadDataList(context.Context, *ReadDataListRequest) (*ReadDataListResponse, error)
 	mustEmbedUnimplementedMainControlServer()
 }
@@ -95,6 +117,12 @@ func (UnimplementedMainControlServer) ReadSensor(context.Context, *ReadSensorReq
 }
 func (UnimplementedMainControlServer) ReadSensorList(context.Context, *ReadSensorListRequest) (*ReadSensorListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadSensorList not implemented")
+}
+func (UnimplementedMainControlServer) UpdateSensor(context.Context, *UpdateSensorRequest) (*UpdateSensorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSensor not implemented")
+}
+func (UnimplementedMainControlServer) DeleteSensor(context.Context, *DeleteSensorRequest) (*DeleteSensorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSensor not implemented")
 }
 func (UnimplementedMainControlServer) ReadDataList(context.Context, *ReadDataListRequest) (*ReadDataListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadDataList not implemented")
@@ -166,6 +194,42 @@ func _MainControl_ReadSensorList_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MainControl_UpdateSensor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSensorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MainControlServer).UpdateSensor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/maincontrol.MainControl/UpdateSensor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MainControlServer).UpdateSensor(ctx, req.(*UpdateSensorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MainControl_DeleteSensor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSensorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MainControlServer).DeleteSensor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/maincontrol.MainControl/DeleteSensor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MainControlServer).DeleteSensor(ctx, req.(*DeleteSensorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _MainControl_ReadDataList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadDataListRequest)
 	if err := dec(in); err != nil {
@@ -202,6 +266,14 @@ var MainControl_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadSensorList",
 			Handler:    _MainControl_ReadSensorList_Handler,
+		},
+		{
+			MethodName: "UpdateSensor",
+			Handler:    _MainControl_UpdateSensor_Handler,
+		},
+		{
+			MethodName: "DeleteSensor",
+			Handler:    _MainControl_DeleteSensor_Handler,
 		},
 		{
 			MethodName: "ReadDataList",

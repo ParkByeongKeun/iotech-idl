@@ -28,7 +28,18 @@ service MainControl {
       get: "/api/main/v1/sensor_list"
   };
   }
-
+  rpc UpdateSensor(UpdateSensorRequest) returns (UpdateSensorResponse) {
+    option (google.api.http) = {
+      put: "/api/main/v1/sensor"
+      body: "*"
+    };
+  }
+  rpc DeleteSensor(DeleteSensorRequest) returns (DeleteSensorResponse) {
+    option (google.api.http) = {
+      delete: "/api/main/v1/sensor"
+      body: "*"
+    };
+  }
   rpc ReadDataList(ReadDataListRequest) returns (ReadDataListResponse) {
     option (google.api.http) = {
       get: "/api/main/v1/data_list"
@@ -78,6 +89,32 @@ message CreateSensorRequest {
 
 message CreateSensorResponse {
   string serial = 1;
+}
+
+message UpdateSensorRequest {
+  string header = 1;
+  string serial = 2;
+  string name = 3;
+  string mac = 4;
+  string phase = 5;
+  string usage = 6;
+  string install_addr = 7;
+  string note = 8;
+  string net_ip = 9;
+  string net_gw = 10;
+  string net_mask = 11;
+  string net_dns = 12;
+}
+
+message UpdateSensorResponse {
+  string serial =1;
+}
+
+message DeleteSensorRequest {
+  string serial = 1;
+}
+message DeleteSensorResponse {
+
 }
 
 // 특정 sensor 가져오기
