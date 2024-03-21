@@ -37,10 +37,10 @@ service MainControl {
 
 }
 
-// enum SensorStatus {
-//   SENSOR_STATUS_DEFAULT = 0; 
-//   SENSOR_STATUS_INSPECTION = 1;
-// }
+enum SensorStatus {
+  SENSOR_STATUS_DEFAULT = 0; 
+  SENSOR_STATUS_INSPECTION = 1;
+}
 
 message Sensor {
   string header = 1;
@@ -51,13 +51,29 @@ message Sensor {
   string usage = 6;
   string install_addr = 7;
   string registered_time = 8;
-  // SensorStatus sensorStatus = 7;
-  string note = 9;
-  string regi_by_who = 10;
+  string last_modifyed_time = 9;
+  string note = 10;
+  string regi_by_who = 11;
+  string net_ip = 12;
+  string net_gw = 13;
+  string net_mask = 14;
+  string net_dns = 15;
+  SensorStatus sensorStatus = 16;
 }
 
 message CreateSensorRequest {
-  Sensor sensor = 1;
+  string header = 1;
+  string serial = 2;
+  string name = 3;
+  string mac = 4;
+  string phase = 5;
+  string usage = 6;
+  string install_addr = 7;
+  string note = 8;
+  string net_ip = 9;
+  string net_gw = 10;
+  string net_mask = 11;
+  string net_dns = 12;
 }
 
 message CreateSensorResponse {
