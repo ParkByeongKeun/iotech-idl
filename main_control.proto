@@ -127,8 +127,7 @@ message ReadSensorResponse {
 
 // sensor list 가져오기
 message ReadSensorListRequest {
-  // string settop_uuid = 1;
-  string install_addr = 1;
+  string install_addr = 1;   // install_addr = "" -> all sensor 
 }
 message ReadSensorListResponse {
   repeated Sensor sensor_list = 1;
@@ -156,7 +155,7 @@ message Data {
 
 
 message ReadDataListRequest {
-  string sensor_serial = 1;
+  string sensor_serial = 1; // sensor_serial = "" -> all sensor data
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
