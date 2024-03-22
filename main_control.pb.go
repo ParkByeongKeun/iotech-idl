@@ -842,8 +842,7 @@ type ReadSensorListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// string settop_uuid = 1;
-	InstallAddr string `protobuf:"bytes,1,opt,name=install_addr,json=installAddr,proto3" json:"install_addr,omitempty"`
+	InstallAddr string `protobuf:"bytes,1,opt,name=install_addr,json=installAddr,proto3" json:"install_addr,omitempty"` // install_addr = "" -> all sensor
 }
 
 func (x *ReadSensorListRequest) Reset() {
@@ -1032,10 +1031,10 @@ type ReadDataListRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SensorSerial string `protobuf:"bytes,1,opt,name=sensor_serial,json=sensorSerial,proto3" json:"sensor_serial,omitempty"`
-	PrevDate     string `protobuf:"bytes,2,opt,name=prev_date,json=prevDate,proto3" json:"prev_date,omitempty"`
-	NextDate     string `protobuf:"bytes,3,opt,name=next_date,json=nextDate,proto3" json:"next_date,omitempty"`
-	Interval     uint64 `protobuf:"varint,4,opt,name=interval,proto3" json:"interval,omitempty"`
+	SensorSerial []string `protobuf:"bytes,1,rep,name=sensor_serial,json=sensorSerial,proto3" json:"sensor_serial,omitempty"`
+	PrevDate     string   `protobuf:"bytes,2,opt,name=prev_date,json=prevDate,proto3" json:"prev_date,omitempty"`
+	NextDate     string   `protobuf:"bytes,3,opt,name=next_date,json=nextDate,proto3" json:"next_date,omitempty"`
+	Interval     uint64   `protobuf:"varint,4,opt,name=interval,proto3" json:"interval,omitempty"`
 }
 
 func (x *ReadDataListRequest) Reset() {
@@ -1070,11 +1069,11 @@ func (*ReadDataListRequest) Descriptor() ([]byte, []int) {
 	return file_main_control_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *ReadDataListRequest) GetSensorSerial() string {
+func (x *ReadDataListRequest) GetSensorSerial() []string {
 	if x != nil {
 		return x.SensorSerial
 	}
-	return ""
+	return nil
 }
 
 func (x *ReadDataListRequest) GetPrevDate() string {
@@ -1263,7 +1262,7 @@ var file_main_control_proto_rawDesc = []byte{
 	0x75, 0x74, 0x63, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x74, 0x63, 0x22, 0x90,
 	0x01, 0x0a, 0x13, 0x52, 0x65, 0x61, 0x64, 0x44, 0x61, 0x74, 0x61, 0x4c, 0x69, 0x73, 0x74, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x23, 0x0a, 0x0d, 0x73, 0x65, 0x6e, 0x73, 0x6f, 0x72,
-	0x5f, 0x73, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x73,
+	0x5f, 0x73, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0c, 0x73,
 	0x65, 0x6e, 0x73, 0x6f, 0x72, 0x53, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x12, 0x1b, 0x0a, 0x09, 0x70,
 	0x72, 0x65, 0x76, 0x5f, 0x64, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
 	0x70, 0x72, 0x65, 0x76, 0x44, 0x61, 0x74, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6e, 0x65, 0x78, 0x74,

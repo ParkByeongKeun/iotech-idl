@@ -155,7 +155,7 @@ message Data {
 
 
 message ReadDataListRequest {
-  string sensor_serial = 1; // sensor_serial = "" -> all sensor data
+  repeated string sensor_serial = 1;
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
