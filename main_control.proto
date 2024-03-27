@@ -45,7 +45,11 @@ service MainControl {
       get: "/api/main/v1/data_list"
   };
   }
-
+  rpc ReadCompare(ReadCompareRequest) returns (ReadCompareResponse) {
+    option (google.api.http) = {
+      get: "/api/main/v1/compare"
+  };
+  }
 }
 
 enum SensorStatus {
@@ -144,13 +148,14 @@ enum Event {
 
 
 message Data {
-  float power_factor = 1; //역률
+  float apparent_power = 1; //피상전력
   float reactive_power = 2; //무효전력
   float active_power = 3; //유효전력
   float voltage = 4; //전압
   float frequency = 5; //주파수
-  repeated Event event = 6; //이벤트
-  string utc = 7;
+  float temp = 6; //온도
+  repeated Event event = 7; //이벤트
+  string utc = 8;
 }
 
 
@@ -162,4 +167,15 @@ message ReadDataListRequest {
 }
 message ReadDataListResponse {
   repeated Data data_list = 1;
+}
+
+
+message ReadCompareRequest {
+  repeated string sensor_serial = 1;
+  string type = 2; //"year" or "month"
+}
+message ReadCompareResponse {
+  repeated Data data_list = 1;
+  repeated Data prev1_data_list = 2;
+  repeated Data prev2_data_list = 3;
 }

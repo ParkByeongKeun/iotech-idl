@@ -28,6 +28,7 @@ type MainControlClient interface {
 	UpdateSensor(ctx context.Context, in *UpdateSensorRequest, opts ...grpc.CallOption) (*UpdateSensorResponse, error)
 	DeleteSensor(ctx context.Context, in *DeleteSensorRequest, opts ...grpc.CallOption) (*DeleteSensorResponse, error)
 	ReadDataList(ctx context.Context, in *ReadDataListRequest, opts ...grpc.CallOption) (*ReadDataListResponse, error)
+	ReadCompare(ctx context.Context, in *ReadCompareRequest, opts ...grpc.CallOption) (*ReadCompareResponse, error)
 }
 
 type mainControlClient struct {
@@ -92,6 +93,15 @@ func (c *mainControlClient) ReadDataList(ctx context.Context, in *ReadDataListRe
 	return out, nil
 }
 
+func (c *mainControlClient) ReadCompare(ctx context.Context, in *ReadCompareRequest, opts ...grpc.CallOption) (*ReadCompareResponse, error) {
+	out := new(ReadCompareResponse)
+	err := c.cc.Invoke(ctx, "/maincontrol.MainControl/ReadCompare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MainControlServer is the server API for MainControl service.
 // All implementations must embed UnimplementedMainControlServer
 // for forward compatibility
@@ -102,6 +112,7 @@ type MainControlServer interface {
 	UpdateSensor(context.Context, *UpdateSensorRequest) (*UpdateSensorResponse, error)
 	DeleteSensor(context.Context, *DeleteSensorRequest) (*DeleteSensorResponse, error)
 	ReadDataList(context.Context, *ReadDataListRequest) (*ReadDataListResponse, error)
+	ReadCompare(context.Context, *ReadCompareRequest) (*ReadCompareResponse, error)
 	mustEmbedUnimplementedMainControlServer()
 }
 
@@ -126,6 +137,9 @@ func (UnimplementedMainControlServer) DeleteSensor(context.Context, *DeleteSenso
 }
 func (UnimplementedMainControlServer) ReadDataList(context.Context, *ReadDataListRequest) (*ReadDataListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadDataList not implemented")
+}
+func (UnimplementedMainControlServer) ReadCompare(context.Context, *ReadCompareRequest) (*ReadCompareResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadCompare not implemented")
 }
 func (UnimplementedMainControlServer) mustEmbedUnimplementedMainControlServer() {}
 
@@ -248,6 +262,24 @@ func _MainControl_ReadDataList_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MainControl_ReadCompare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadCompareRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MainControlServer).ReadCompare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/maincontrol.MainControl/ReadCompare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MainControlServer).ReadCompare(ctx, req.(*ReadCompareRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MainControl_ServiceDesc is the grpc.ServiceDesc for MainControl service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +310,10 @@ var MainControl_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReadDataList",
 			Handler:    _MainControl_ReadDataList_Handler,
+		},
+		{
+			MethodName: "ReadCompare",
+			Handler:    _MainControl_ReadCompare_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
