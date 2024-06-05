@@ -81,6 +81,7 @@ message CreateDeviceRequest {
   string mac = 2;
   string customer_id = 3;
   string manufacturer_id = 4;
+  string install_addr = 5;
 }
 
 message CreateDeviceResponse {
