@@ -85,7 +85,7 @@ message CreateDeviceRequest {
 }
 
 message CreateDeviceResponse {
-  string customer_id = 1;
+  string mac = 1;
 }
 
 message UpdateDeviceRequest {
@@ -96,25 +96,25 @@ message UpdateDeviceRequest {
 }
 
 message UpdateDeviceResponse {
-  string customer_id = 3;
+  string mac = 3;
 }
 
 message DeleteDeviceRequest {
-  string customer_id = 1;
+  string mac = 1;
 }
 message DeleteDeviceResponse {
 
 }
 
 message ReadDeviceRequest {
-  string customer_id = 1;
+  string mac = 1;
 }
 message ReadDeviceResponse {
   Device device = 1;
 }
 
 message ReadDeviceListRequest {
-  //just all sensor 
+  string install_addr = 1; 
 }
 message ReadDeviceListResponse {
   repeated Device device_list = 1;
