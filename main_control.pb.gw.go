@@ -31,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_MainControl_CreateSensor_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateSensorRequest
+func request_MainControl_CreateDevice_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDeviceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -43,13 +43,13 @@ func request_MainControl_CreateSensor_0(ctx context.Context, marshaler runtime.M
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateSensor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateDevice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_MainControl_CreateSensor_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateSensorRequest
+func local_request_MainControl_CreateDevice_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateDeviceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -60,219 +60,201 @@ func local_request_MainControl_CreateSensor_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateSensor(ctx, &protoReq)
+	msg, err := server.CreateDevice(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_MainControl_ReadSensor_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_MainControl_ReadDevice_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_MainControl_ReadSensor_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadSensorRequest
+func request_MainControl_ReadDevice_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadDeviceRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadSensor_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadDevice_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.ReadSensor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ReadDevice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_MainControl_ReadSensor_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadSensorRequest
+func local_request_MainControl_ReadDevice_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadDeviceRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadSensor_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadDevice_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.ReadSensor(ctx, &protoReq)
+	msg, err := server.ReadDevice(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_MainControl_ReadDeviceList_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadDeviceListRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ReadDeviceList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_MainControl_ReadDeviceList_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadDeviceListRequest
+	var metadata runtime.ServerMetadata
+
+	msg, err := server.ReadDeviceList(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_MainControl_UpdateDevice_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateDeviceRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdateDevice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_MainControl_UpdateDevice_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq UpdateDeviceRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.UpdateDevice(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_MainControl_DeleteDevice_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteDeviceRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeleteDevice(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_MainControl_DeleteDevice_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq DeleteDeviceRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.DeleteDevice(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_MainControl_ReadSensorList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_MainControl_ReadPowerDataList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_MainControl_ReadSensorList_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadSensorListRequest
+func request_MainControl_ReadPowerDataList_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadPowerDataListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadSensorList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadPowerDataList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.ReadSensorList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ReadPowerDataList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_MainControl_ReadSensorList_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadSensorListRequest
+func local_request_MainControl_ReadPowerDataList_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadPowerDataListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadSensorList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadPowerDataList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.ReadSensorList(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_MainControl_UpdateSensor_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateSensorRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.UpdateSensor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_MainControl_UpdateSensor_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq UpdateSensorRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.UpdateSensor(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_MainControl_DeleteSensor_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteSensorRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.DeleteSensor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_MainControl_DeleteSensor_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq DeleteSensorRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.DeleteSensor(ctx, &protoReq)
+	msg, err := server.ReadPowerDataList(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_MainControl_ReadDataList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_MainControl_ReadMomentDataList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_MainControl_ReadDataList_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadDataListRequest
+func request_MainControl_ReadMomentDataList_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadMomentDataListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadDataList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadMomentDataList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.ReadDataList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.ReadMomentDataList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_MainControl_ReadDataList_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadDataListRequest
+func local_request_MainControl_ReadMomentDataList_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ReadMomentDataListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadDataList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadMomentDataList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.ReadDataList(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-var (
-	filter_MainControl_ReadCompare_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_MainControl_ReadCompare_0(ctx context.Context, marshaler runtime.Marshaler, client MainControlClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadCompareRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadCompare_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.ReadCompare(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_MainControl_ReadCompare_0(ctx context.Context, marshaler runtime.Marshaler, server MainControlServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ReadCompareRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_MainControl_ReadCompare_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.ReadCompare(ctx, &protoReq)
+	msg, err := server.ReadMomentDataList(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -283,7 +265,7 @@ func local_request_MainControl_ReadCompare_0(ctx context.Context, marshaler runt
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterMainControlHandlerFromEndpoint instead.
 func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux, server MainControlServer) error {
 
-	mux.Handle("POST", pattern_MainControl_CreateSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_MainControl_CreateDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -291,12 +273,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/CreateSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/CreateDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_CreateSensor_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_CreateDevice_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -304,11 +286,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_CreateSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_CreateDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -316,12 +298,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_ReadSensor_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_ReadDevice_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -329,11 +311,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_ReadSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadSensorList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadDeviceList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -341,12 +323,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadSensorList", runtime.WithHTTPPathPattern("/api/main/v1/sensor_list"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadDeviceList", runtime.WithHTTPPathPattern("/api/main/v1/device_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_ReadSensorList_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_ReadDeviceList_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -354,11 +336,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_ReadSensorList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadDeviceList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_MainControl_UpdateSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_MainControl_UpdateDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -366,12 +348,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/UpdateSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/UpdateDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_UpdateSensor_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_UpdateDevice_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -379,11 +361,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_UpdateSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_UpdateDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_MainControl_DeleteSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_MainControl_DeleteDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -391,12 +373,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/DeleteSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/DeleteDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_DeleteSensor_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_DeleteDevice_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -404,11 +386,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_DeleteSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_DeleteDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadPowerDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -416,12 +398,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadDataList", runtime.WithHTTPPathPattern("/api/main/v1/data_list"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadPowerDataList", runtime.WithHTTPPathPattern("/api/main/v1/power_data_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_ReadDataList_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_ReadPowerDataList_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -429,11 +411,11 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_ReadDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadPowerDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadCompare_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadMomentDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -441,12 +423,12 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadCompare", runtime.WithHTTPPathPattern("/api/main/v1/compare"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/maincontrol.MainControl/ReadMomentDataList", runtime.WithHTTPPathPattern("/api/main/v1/moment_data_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_MainControl_ReadCompare_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_MainControl_ReadMomentDataList_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -454,7 +436,7 @@ func RegisterMainControlHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 
-		forward_MainControl_ReadCompare_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadMomentDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -499,157 +481,157 @@ func RegisterMainControlHandler(ctx context.Context, mux *runtime.ServeMux, conn
 // "MainControlClient" to call the correct interceptors.
 func RegisterMainControlHandlerClient(ctx context.Context, mux *runtime.ServeMux, client MainControlClient) error {
 
-	mux.Handle("POST", pattern_MainControl_CreateSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_MainControl_CreateDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/CreateSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/CreateDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_CreateSensor_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_CreateDevice_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_CreateSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_CreateDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_ReadSensor_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_ReadDevice_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_ReadSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadSensorList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadDeviceList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadSensorList", runtime.WithHTTPPathPattern("/api/main/v1/sensor_list"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadDeviceList", runtime.WithHTTPPathPattern("/api/main/v1/device_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_ReadSensorList_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_ReadDeviceList_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_ReadSensorList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadDeviceList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_MainControl_UpdateSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_MainControl_UpdateDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/UpdateSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/UpdateDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_UpdateSensor_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_UpdateDevice_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_UpdateSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_UpdateDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_MainControl_DeleteSensor_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_MainControl_DeleteDevice_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/DeleteSensor", runtime.WithHTTPPathPattern("/api/main/v1/sensor"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/DeleteDevice", runtime.WithHTTPPathPattern("/api/main/v1/device"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_DeleteSensor_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_DeleteDevice_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_DeleteSensor_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_DeleteDevice_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadPowerDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadDataList", runtime.WithHTTPPathPattern("/api/main/v1/data_list"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadPowerDataList", runtime.WithHTTPPathPattern("/api/main/v1/power_data_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_ReadDataList_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_ReadPowerDataList_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_ReadDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadPowerDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_MainControl_ReadCompare_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_MainControl_ReadMomentDataList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadCompare", runtime.WithHTTPPathPattern("/api/main/v1/compare"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/maincontrol.MainControl/ReadMomentDataList", runtime.WithHTTPPathPattern("/api/main/v1/moment_data_list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_MainControl_ReadCompare_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_MainControl_ReadMomentDataList_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_MainControl_ReadCompare_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_MainControl_ReadMomentDataList_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -657,33 +639,33 @@ func RegisterMainControlHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_MainControl_CreateSensor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "sensor"}, ""))
+	pattern_MainControl_CreateDevice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "device"}, ""))
 
-	pattern_MainControl_ReadSensor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "sensor"}, ""))
+	pattern_MainControl_ReadDevice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "device"}, ""))
 
-	pattern_MainControl_ReadSensorList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "sensor_list"}, ""))
+	pattern_MainControl_ReadDeviceList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "device_list"}, ""))
 
-	pattern_MainControl_UpdateSensor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "sensor"}, ""))
+	pattern_MainControl_UpdateDevice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "device"}, ""))
 
-	pattern_MainControl_DeleteSensor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "sensor"}, ""))
+	pattern_MainControl_DeleteDevice_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "device"}, ""))
 
-	pattern_MainControl_ReadDataList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "data_list"}, ""))
+	pattern_MainControl_ReadPowerDataList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "power_data_list"}, ""))
 
-	pattern_MainControl_ReadCompare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "compare"}, ""))
+	pattern_MainControl_ReadMomentDataList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "main", "v1", "moment_data_list"}, ""))
 )
 
 var (
-	forward_MainControl_CreateSensor_0 = runtime.ForwardResponseMessage
+	forward_MainControl_CreateDevice_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_ReadSensor_0 = runtime.ForwardResponseMessage
+	forward_MainControl_ReadDevice_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_ReadSensorList_0 = runtime.ForwardResponseMessage
+	forward_MainControl_ReadDeviceList_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_UpdateSensor_0 = runtime.ForwardResponseMessage
+	forward_MainControl_UpdateDevice_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_DeleteSensor_0 = runtime.ForwardResponseMessage
+	forward_MainControl_DeleteDevice_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_ReadDataList_0 = runtime.ForwardResponseMessage
+	forward_MainControl_ReadPowerDataList_0 = runtime.ForwardResponseMessage
 
-	forward_MainControl_ReadCompare_0 = runtime.ForwardResponseMessage
+	forward_MainControl_ReadMomentDataList_0 = runtime.ForwardResponseMessage
 )

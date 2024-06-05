@@ -12,170 +12,189 @@ package maincontrol;
 
 service MainControl {
   
-  rpc CreateSensor(CreateSensorRequest) returns (CreateSensorResponse) {
+  rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceResponse) {
     option (google.api.http) = {
-      post: "/api/main/v1/sensor"
+      post: "/api/main/v1/device"
       body: "*"
   };
   }
-  rpc ReadSensor(ReadSensorRequest) returns (ReadSensorResponse) {
+  rpc ReadDevice(ReadDeviceRequest) returns (ReadDeviceResponse) {
     option (google.api.http) = {
-      get: "/api/main/v1/sensor"
+      get: "/api/main/v1/device"
   };
   }
-  rpc ReadSensorList(ReadSensorListRequest) returns (ReadSensorListResponse) {
+  rpc ReadDeviceList(ReadDeviceListRequest) returns (ReadDeviceListResponse) {
     option (google.api.http) = {
-      get: "/api/main/v1/sensor_list"
+      get: "/api/main/v1/device_list"
   };
   }
-  rpc UpdateSensor(UpdateSensorRequest) returns (UpdateSensorResponse) {
+  rpc UpdateDevice(UpdateDeviceRequest) returns (UpdateDeviceResponse) {
     option (google.api.http) = {
-      put: "/api/main/v1/sensor"
-      body: "*"
-    };
-  }
-  rpc DeleteSensor(DeleteSensorRequest) returns (DeleteSensorResponse) {
-    option (google.api.http) = {
-      delete: "/api/main/v1/sensor"
+      put: "/api/main/v1/device"
       body: "*"
     };
   }
-  rpc ReadDataList(ReadDataListRequest) returns (ReadDataListResponse) {
+  rpc DeleteDevice(DeleteDeviceRequest) returns (DeleteDeviceResponse) {
     option (google.api.http) = {
-      get: "/api/main/v1/data_list"
+      delete: "/api/main/v1/device"
+      body: "*"
+    };
+  }
+  rpc ReadPowerDataList(ReadPowerDataListRequest) returns (ReadPowerDataListResponse) {
+    option (google.api.http) = {
+      get: "/api/main/v1/power_data_list"
   };
   }
-  rpc ReadCompare(ReadCompareRequest) returns (ReadCompareResponse) {
+
+
+  rpc ReadMomentDataList(ReadMomentDataListRequest) returns (ReadMomentDataListResponse) {
     option (google.api.http) = {
-      get: "/api/main/v1/compare"
+      get: "/api/main/v1/moment_data_list"
   };
   }
+
+  // rpc ReadPowerCompare(ReadPowerCompareRequest) returns (ReadPowerCompareResponse) {
+  //   option (google.api.http) = {
+  //     get: "/api/main/v1/power_compare"
+  // };
+  // }
+
+  // rpc ReadMomentCompare(ReadMomentCompareRequest) returns (ReadMomentCompareResponse) {
+  //   option (google.api.http) = {
+  //     get: "/api/main/v1/moment_compare"
+  // };
+  // }
 }
 
-enum SensorStatus {
-  SENSOR_STATUS_DEFAULT = 0; 
-  SENSOR_STATUS_INSPECTION = 1;
+message Device {
+  string name = 1;
+  string mac = 2;
+  string customer_id = 3;
+  string manufacturer_id = 4;
+  string reading_date = 5;
+  string install_addr = 6;
+  string net_ip = 7;
 }
 
-message Sensor {
-  string header = 1;
-  string serial = 2;
-  string name = 3;
-  string mac = 4;
-  string phase = 5;
-  string usage = 6;
-  string install_addr = 7;
-  string registered_time = 8;
-  string last_modified_time = 9;
-  string note = 10;
-  string regi_by_who = 11;
-  string net_ip = 12;
-  string net_gw = 13;
-  string net_mask = 14;
-  string net_dns = 15;
-  SensorStatus sensorStatus = 16;
+message CreateDeviceRequest {
+  string name = 1;
+  string mac = 2;
+  string customer_id = 3;
+  string manufacturer_id = 4;
 }
 
-message CreateSensorRequest {
-  string header = 1;
-  string serial = 2;
-  string name = 3;
-  string mac = 4;
-  string phase = 5;
-  string usage = 6;
-  string install_addr = 7;
-  string note = 8;
-  string net_ip = 9;
-  string net_gw = 10;
-  string net_mask = 11;
-  string net_dns = 12;
+message CreateDeviceResponse {
+  string customer_id = 1;
 }
 
-message CreateSensorResponse {
-  string serial = 1;
+message UpdateDeviceRequest {
+  string name = 1;
+  string mac = 2;
+  string customer_id = 3;
+  string manufacturer_id = 4;
 }
 
-message UpdateSensorRequest {
-  string header = 1;
-  string serial = 2;
-  string name = 3;
-  string mac = 4;
-  string phase = 5;
-  string usage = 6;
-  string install_addr = 7;
-  string note = 8;
-  string net_ip = 9;
-  string net_gw = 10;
-  string net_mask = 11;
-  string net_dns = 12;
+message UpdateDeviceResponse {
+  string customer_id = 3;
 }
 
-message UpdateSensorResponse {
-  string serial =1;
+message DeleteDeviceRequest {
+  string customer_id = 1;
 }
-
-message DeleteSensorRequest {
-  string serial = 1;
-}
-message DeleteSensorResponse {
+message DeleteDeviceResponse {
 
 }
 
-// 특정 sensor 가져오기
-message ReadSensorRequest {
-  string serial = 1;
+message ReadDeviceRequest {
+  string customer_id = 1;
 }
-message ReadSensorResponse {
-  Sensor sensor = 1;
+message ReadDeviceResponse {
+  Device device = 1;
 }
 
-// sensor list 가져오기
-message ReadSensorListRequest {
-  string install_addr = 1;   // install_addr = "" -> all sensor 
+message ReadDeviceListRequest {
+  //just all sensor 
 }
-message ReadSensorListResponse {
-  repeated Sensor sensor_list = 1;
+message ReadDeviceListResponse {
+  repeated Device device_list = 1;
 }
 
 enum Event {
-  POWER_FACTOR = 0; //역률
-  VOLTAGE_DROP = 1; //전압강하
-  SHORT_CIRCUIT = 2; //누전
-  OVERCURRENT = 3; //과전류
-  OVERVOLTAGE = 4; //과전압
-  ARC = 5; //아크
+  BATTERY = 0; //배터리감지
+  LOW_VOLTAGE = 1; //배터리 저전압
+  COVER_OPEN = 2; //커버열림
+  MAGNETIC_DETECTION = 3; //자계감지
 }
 
 
-message Data {
+message PowerData { //전력량
   float apparent_power = 1; //피상전력
-  float reactive_power = 2; //무효전력
-  float active_power = 3; //유효전력
-  float voltage = 4; //전압
-  float frequency = 5; //주파수
-  float temp = 6; //온도
-  repeated Event event = 7; //이벤트
-  string utc = 8;
+  float active_power = 2; //유효전력
+  float ground_reactive_power = 3; //지상 무효전력
+  float truth_reactive_power  = 4; //진상 무효전력
+  float power_factor = 5;
+  repeated Event event = 6; //이벤트
+  string utc = 7;
 }
 
 
-message ReadDataListRequest {
-  repeated string sensor_serial = 1;
+message ReadPowerDataListRequest {
+  repeated string customer_id = 1;
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
 }
-message ReadDataListResponse {
-  repeated Data data_list = 1;
+message ReadPowerDataListResponse {
+  repeated PowerData power_data_list = 1;
 }
 
 
-message ReadCompareRequest {
-  repeated string sensor_serial = 1;
-  string type = 2; //"year" or "month"
+// message ReadPowerCompareRequest {
+//   repeated string customer_id = 1;
+//   string type = 2; 
+// }
+// message ReadPowerCompareResponse {
+//   repeated PowerData power_data_list = 1;
+//   repeated PowerData prev1_data_list = 2;
+//   repeated PowerData prev2_data_list = 3;
+// }
+
+message MomentData { //순시값
+  float current_a = 1;
+  float voltage_a = 2;
+  float voltage_thd_a = 3;
+  float power_factor_a = 4;
+  float phase_a = 5;
+  float current_b = 6;
+  float voltage_b = 7;
+  float voltage_thd_b = 8;
+  float power_factor_b = 9;
+  float phase_b = 10;
+  float current_c = 11;
+  float voltage_c = 12;
+  float voltage_thd_c = 13;
+  float power_factor_c = 14;
+  float phase_c = 15;
+  float temp = 16;
 }
-message ReadCompareResponse {
-  repeated Data data_list = 1;
-  repeated Data prev1_data_list = 2;
-  repeated Data prev2_data_list = 3;
+
+
+message ReadMomentDataListRequest {
+  repeated string customer_id = 1;
+  string prev_date = 2;
+  string next_date = 3;
+  uint64 interval = 4;
 }
+message ReadMomentDataListResponse {
+  repeated MomentData moment_data_list = 1;
+}
+
+// message ReadMomentCompareRequest {
+//   repeated string customer_id = 1;
+//   string type = 2; 
+// }
+// message ReadMomentCompareResponse {
+//   repeated MomentData moment_data_list = 1;
+//   repeated MomentData prev1_data_list = 2;
+//   repeated MomentData prev2_data_list = 3;
+// }
