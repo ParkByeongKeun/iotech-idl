@@ -93,6 +93,8 @@ message UpdateDeviceRequest {
   string mac = 2;
   string customer_id = 3;
   string manufacturer_id = 4;
+  string reading_date = 5;
+  string install_addr = 6;
 }
 
 message UpdateDeviceResponse {
