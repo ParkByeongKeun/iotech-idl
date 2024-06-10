@@ -142,7 +142,7 @@ message PowerData { //전력량
 
 
 message ReadPowerDataListRequest {
-  repeated string customer_id = 1;
+  repeated string mac = 1;
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
@@ -183,7 +183,7 @@ message MomentData { //순시값
 
 
 message ReadMomentDataListRequest {
-  repeated string customer_id = 1;
+  repeated string mac = 1;
   string prev_date = 2;
   string next_date = 3;
   uint64 interval = 4;
