@@ -179,6 +179,8 @@ message MomentData { //순시값
   float power_factor_c = 14;
   float phase_c = 15;
   float temp = 16;
+  repeated Event event = 17; //이벤트
+  string utc = 18;
 }
 
 
